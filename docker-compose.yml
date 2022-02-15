@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  mariadb:
+    image: mariadb:10.7
+    container_name: npsrinventorymgmt_mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=somerandomrootpassword
+    ports:
+      - 3306:3306
+    networks:
+      - db
+    volumes:
+      - ./volumes/db:/var/lib/mysql
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin:5
+    container_name: npsrinventorymgmt_phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=mariadb
+    networks:
+      - db
+    depends_on:
+      - mariadb
+    restart: always
+
+  cdn:
+    image: nginx:stable-alpine
+    container_name: npsrinventorymgmt_cdn
+    restart: always
+    ports:
+      - 3009:80
+    volumes:
+     - ./volumes/cdn:/usr/share/nginx/html
+
+  # npsrinventorymgmt:
+  #   # build: .
+  #   image: npsrinventorymgmt:latest
+  #   container_name: npsrinventorymgmt
+  #   environment:
+  #     - NODE_ENV=production
+  #     - NPSR_DB_HOST=mariadb
+  #     - NPSR_DB_PASS=somerandompassword
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - db
+  #   volumes:
+  #     - ./volumes/cdn:/app/cdn
+  #   depends_on:
+  #     - mariadb
+  #   restart: always
+
+networks:
+  db:

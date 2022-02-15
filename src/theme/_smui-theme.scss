@@ -1,0 +1,38 @@
+@use 'sass:color';
+
+@use '@material/theme/color-palette';
+
+// Svelte Colors!
+@use '@material/theme/index' as theme with (
+  $primary: #ff3e00,
+  $secondary: #676778,
+  $surface: #fff,
+  $background: #fff,
+  $error: color-palette.$red-900
+);
+
+@use '@material/image-list/index' as image-list;
+@use '@material/circular-progress/index' as circular-progress;
+
+html,
+body {
+  background-color: theme.$surface;
+  color: theme.$on-surface;
+}
+
+a {
+  color: #40b3ff;
+}
+a:visited {
+  color: color.scale(#40b3ff, $lightness: -35%);
+}
+
+.equipment-photo-list-standard {
+  @include image-list.standard-columns(3);
+  max-width: 680px;
+}
+
+.fab-circular-progress {
+  @include circular-progress.color(theme.$on-primary);
+  @include circular-progress.track-color(theme.$on-primary);
+}
