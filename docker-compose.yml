@@ -43,6 +43,7 @@ services:
   #   environment:
   #     - NODE_ENV=production
   #     - NPSR_DB_HOST=mariadb
+  #     - NPSR_DB_PORT=3306
   #     - NPSR_DB_PASS=somerandompassword
   #   ports:
   #     - 3000:3000

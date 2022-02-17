@@ -12,7 +12,7 @@ const sequelize = new Sequelize.Sequelize({
 	username: 'npsrinventorymgmt',
 	password: PRODUCTION_ENV ? process.env['NPSR_DB_PASS'] : 'somerandompassword',
 	host: PRODUCTION_ENV ? process.env['NPSR_DB_HOST'] : 'localhost',
-	port: 3306,
+	port: PRODUCTION_ENV ? +process.env['NPSR_DB_PORT'] : 3306,
 	dialect: 'mysql',
 	dialectModule: mysql2,
 	dialectOptions: {
